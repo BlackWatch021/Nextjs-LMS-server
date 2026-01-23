@@ -13,6 +13,7 @@ import {
 /* ROUTE IMPORTS */
 import courseRoutes from "./routes/courseRoutes";
 import userClerkRoutes from "./routes/userClerkRoutes";
+import transactionRoutes from "./routes/transactionRoutes";
 
 /* CONFIGURATIONS */
 dotenv.config();
@@ -39,9 +40,10 @@ app.use(clerkMiddleware());
 app.get("/", (req, res) => {
   res.send("API is up and running as it needs to be");
 });
+
 app.use("/courses", courseRoutes);
 app.use("/users/clerk", requireAuth(), userClerkRoutes);
-
+app.use("/transactions", requireAuth(), transactionRoutes);
 // SERVER
 const port = process.env.PORT || 3000;
 if (!isProduction) {
