@@ -30,7 +30,7 @@ if (!isProduction) {
   });
 } else {
   client = new DynamoDBClient({
-    region: process.env.AWS_REGION || "us-east-2",
+    region: process.env.AWS_REGION || "ap-south-1",
   });
 }
 
@@ -64,7 +64,7 @@ async function createTables() {
       console.error(
         `Error creating table ${tableName}:`,
         error.message,
-        error.stack
+        error.stack,
       );
     }
   }
@@ -72,11 +72,11 @@ async function createTables() {
 
 async function seedData(tableName: string, filePath: string) {
   const data: { [key: string]: any }[] = JSON.parse(
-    fs.readFileSync(filePath, "utf8")
+    fs.readFileSync(filePath, "utf8"),
   );
 
   const formattedTableName = pluralize.singular(
-    tableName.charAt(0).toUpperCase() + tableName.slice(1)
+    tableName.charAt(0).toUpperCase() + tableName.slice(1),
   );
 
   console.log(`Seeding data to table: ${formattedTableName}`);
@@ -87,14 +87,14 @@ async function seedData(tableName: string, filePath: string) {
     } catch (err) {
       console.error(
         `Unable to add item to ${formattedTableName}. Error:`,
-        JSON.stringify(err, null, 2)
+        JSON.stringify(err, null, 2),
       );
     }
   }
 
   console.log(
     "\x1b[32m%s\x1b[0m",
-    `Successfully seeded data to table: ${formattedTableName}`
+    `Successfully seeded data to table: ${formattedTableName}`,
   );
 }
 
